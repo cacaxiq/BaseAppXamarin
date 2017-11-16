@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BaseApp.Api.Controllers
 {
@@ -10,6 +11,7 @@ namespace BaseApp.Api.Controllers
     public class ValuesController : Controller
     {
         // GET api/values
+        [Authorize("Bearer")]
         [HttpGet]
         public IEnumerable<string> Get()
         {
