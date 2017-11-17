@@ -8,7 +8,8 @@ namespace BaseApp.Infrastructure.Json
         {
             JsonSerializerSettings _jsonWriter = new JsonSerializerSettings
             {
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
+                Encoding.UTF8 = "application/json"
             };
 
             return JsonConvert.SerializeObject(ObjectToConvert, _jsonWriter);

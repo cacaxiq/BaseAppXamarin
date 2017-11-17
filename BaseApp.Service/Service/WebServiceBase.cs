@@ -8,42 +8,42 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Net.Http.Headers;
+
 namespace BaseApp.Service.Service
 {
     public class WebServiceBase<T> where T : class
     {
-        public static async Task<T> RequestAsync(string URL, RequestType requestType = RequestType.Get, KeyValuePair<string, string>[] SendObject = null, int triesNumber = 0)
+        public static async Task<T> RequestAsync(string service, RequestType requestType = RequestType.Get, object SendObject = null, int triesNumber = 0)
         {
-
             T tReturn = null;
+            var url = $"{BaseAppConstants.BaseURL}{service}";
 
             for (int i = 0; i <= triesNumber; i++)
             {
                 try
                 {
-
-                    using (HttpClient client = new HttpClient())
+                    using (var client = new HttpClient())
                     {
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
 
-                        HttpResponseMessage response = new HttpResponseMessage();
-
-                        client.BaseAddress = new Uri(BaseAppConstants.BaseURL);
-
-                        HttpContent httpContent = new FormUrlEncodedContent(SendObject);
+                        var content = JsonHelper.ObjectToJson(T);
 
                         switch (requestType)
                         {
                             case RequestType.Get:
-                                response = await client.GetAsync(URL);
+                                response = await client.GetAsync(url);
                                 break;
                             case RequestType.Post:
-                                response = await client.PostAsync(URL, httpContent);
+                                response = await client.PostAsync(url, httpContent);
                                 break;
                             case RequestType.Put:
-                                response = await client.PutAsync(URL, httpContent);
+                                response = await client.PutAsync(url, httpContent);
                                 break;
                             case RequestType.Delete:
-                                response = await client.DeleteAsync(URL);
+                                response = await client.DeleteAsync(url);
                                 break;
                             default:
                                 break;
