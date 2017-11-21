@@ -3,21 +3,21 @@ using BaseApp.Infrastructure.Enums;
 using BaseApp.Infrastructure.Json;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Net.Http.Headers;
-
-namespace BaseApp.Service.Service
+namespace BaseApp.Service.Core
 {
-    public class WebServiceBase<T> where T : class
+    public static class WebServiceBase<T> where T : class
     {
-        public static async Task<T> RequestAsync(string service, RequestType requestType = RequestType.Get, object SendObject = null, int triesNumber = 0)
+        public static async Task<RespostaPadrão> RequestAsync(string service, string token, int triesNumber = 0, RequestType requestType = RequestType.Get, T SendObject = null)
         {
-            T tReturn = null;
+            RespostaPadrão resposta = null;
             var url = $"{BaseAppConstants.BaseURL}{service}";
+            HttpResponseMessage response = new HttpResponseMessage();
 
             for (int i = 0; i <= triesNumber; i++)
             {
@@ -27,9 +27,9 @@ namespace BaseApp.Service.Service
                     {
                         client.DefaultRequestHeaders.Accept.Clear();
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                        var content = JsonHelper.ObjectToJson(T);
+                        var content = JsonHelper<T>.ObjectToJson(SendObject);
 
                         switch (requestType)
                         {
@@ -37,10 +37,10 @@ namespace BaseApp.Service.Service
                                 response = await client.GetAsync(url);
                                 break;
                             case RequestType.Post:
-                                response = await client.PostAsync(url, httpContent);
+                                response = await client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
                                 break;
                             case RequestType.Put:
-                                response = await client.PutAsync(url, httpContent);
+                                response = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
                                 break;
                             case RequestType.Delete:
                                 response = await client.DeleteAsync(url);
@@ -49,48 +49,56 @@ namespace BaseApp.Service.Service
                                 break;
                         }
 
-                        if (response.IsSuccessStatusCode)
+                        if (response.StatusCode == HttpStatusCode.OK)
                         {
                             string responseString = await response.Content.ReadAsStringAsync();
 
-                            var objetoRetorno = JsonHelper<T>.JsonToObject(responseString);
-
-
-                            tReturn = objetoRetorno;
-
+                            resposta.Content = JsonHelper<T>.JsonToObject(responseString);
                         }
                         else
                         {
                             if (response.StatusCode == System.Net.HttpStatusCode.RequestTimeout)
                             {
                                 if (i == triesNumber)
-                                    throw new Exception("Tempo limite atingido");
+                                {
+                                    resposta.Message = "Tempo limite atingido";
+                                    resposta.IsSuccess = false;
+                                }
                             }
                             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                                throw new Exception("Serviço não encontrado");
+                            {
+                                resposta.Message = "Serviço não encontrado";
+                                resposta.IsSuccess = false;
+                            }
                             else if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                             {
                                 if (i == triesNumber)
-                                    throw new Exception("Serviço indisponível no momento");
+                                {
+                                    resposta.Message = "Serviço indisponível no momento";
+                                    resposta.IsSuccess = false;
+                                }
                             }
                             else
-                                throw new Exception("Falha no acesso!");
+                            {
+                                resposta.Message = "Falha no acesso!";
+                                resposta.IsSuccess = false;
+                            }
                         }
                     }
-
                 }
-                catch (JsonException x)
+                catch (JsonException jsonException)
                 {
-                    throw x;
+                    resposta.Message = $"JsonException: {jsonException.Message}";
+                    resposta.IsSuccess = false;
                 }
-                catch (Exception x)
+                catch (Exception exception)
                 {
-                    throw x;
+                    resposta.Message = $"Exception: {exception.Message}";
+                    resposta.IsSuccess = false;
                 }
             }
 
-            return tReturn;
-
+            return resposta;
         }
     }
 }

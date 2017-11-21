@@ -1,15 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BaseApp.Data\BaseApp.Data.csproj" />
     <ProjectReference Include="..\BaseApp.Infrastructure\BaseApp.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interface\" />
+    <ProjectReference Include="..\BaseApp.Models\BaseApp.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

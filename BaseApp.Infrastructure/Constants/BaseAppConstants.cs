@@ -7,5 +7,7 @@
 
         public static readonly string UserName = "";
         public static readonly string Password = "";
+
+        public const string TokenKey = "token_key";
     }
 }

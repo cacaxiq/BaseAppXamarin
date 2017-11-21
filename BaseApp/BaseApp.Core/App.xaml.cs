@@ -1,4 +1,11 @@
-﻿using BaseApp.Core.Views;
+﻿using BaseApp.Core.Helpers;
+using BaseApp.Core.Views;
+using BaseApp.Models.Authorization;
+using BaseApp.Models.Interfaces.Authorization;
+using BaseApp.Service.Interface;
+using BaseApp.Service.Services;
+using Microsoft.Practices.Unity;
+using Plugin.Settings.Abstractions;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
 
@@ -25,6 +32,9 @@ namespace BaseApp.Core
 
         protected void InitServices(bool mock = false)
         {
+            Container.RegisterType<ISettings>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IToken, TokenConfiguration>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IValueService, ValueService>(new ContainerControlledLifetimeManager());
         }
     }
 }

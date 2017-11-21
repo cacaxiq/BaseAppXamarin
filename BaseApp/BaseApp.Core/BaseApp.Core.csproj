@@ -7,12 +7,19 @@
   <ItemGroup>
     <PackageReference Include="Prism.Forms" Version="7.0.0.168-pre" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.168-pre" />
-    <PackageReference Include="Unity" Version="5.2.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.77107" />
+    <PackageReference Include="Unity" Version="5.3.0" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.91635" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BaseApp.Infrastructure\BaseApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\BaseApp.Models\BaseApp.Models.csproj" />
+    <ProjectReference Include="..\..\BaseApp.Service\BaseApp.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

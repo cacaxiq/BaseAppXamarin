@@ -1,4 +1,5 @@
 ﻿using BaseApp.Api.Authorization;
+using BaseApp.Models.Api;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -22,9 +23,7 @@ namespace BaseApp.Api.Controllers
             bool credenciaisValidas = false;
             if (usuario != null && !String.IsNullOrWhiteSpace(usuario.UserID))
             {
-                credenciaisValidas = (
-                 usuario.UserID == "carlos" &&
-                   usuario.AccessKey == "123");
+                credenciaisValidas = ( usuario.UserID == "carlos" && usuario.AccessKey == "123");
             }
 
             if (credenciaisValidas)

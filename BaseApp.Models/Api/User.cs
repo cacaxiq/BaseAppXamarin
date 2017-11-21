@@ -1,4 +1,4 @@
-﻿namespace BaseApp.Api.Authorization
+﻿namespace BaseApp.Models.Api
 {
     public class User
     {

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text;
 
 namespace BaseApp.Infrastructure.Json
 {
@@ -8,8 +9,7 @@ namespace BaseApp.Infrastructure.Json
         {
             JsonSerializerSettings _jsonWriter = new JsonSerializerSettings
             {
-                NullValueHandling = NullValueHandling.Ignore,
-                Encoding.UTF8 = "application/json"
+                NullValueHandling = NullValueHandling.Ignore
             };
 
             return JsonConvert.SerializeObject(ObjectToConvert, _jsonWriter);
