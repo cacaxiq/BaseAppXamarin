@@ -9,7 +9,7 @@ namespace BaseApp.Service.Services
 {
     public class ValuesService : ServiceBase, IValuesService
     {
-        public ValuesService(ISettingsUser settingsUser) : base(_serviceName: "posts", settingsUser: settingsUser)
+        public ValuesService(ISettingsUser settingsUser) : base(_serviceName: "values", settingsUser: settingsUser)
         {
 
         }

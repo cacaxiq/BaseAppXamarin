@@ -26,12 +26,11 @@ namespace BaseApp.Core.ViewModels
             get { return userLogin; }
             set { SetProperty(ref userLogin, value); }
         }
-        
+
         public LoginPageViewModel(
-            IAccessControlService accessControlService
-            ,IValuesService valuesService
+              IAccessControlService accessControlService
             , IPageDialogService dialogService
-             , INavigationService navigationService) : base(navigationService)
+            , INavigationService navigationService) : base(navigationService)
         {
             UserLogin = new LoginDTO();
 
@@ -39,7 +38,6 @@ namespace BaseApp.Core.ViewModels
 
             AccessControlService = accessControlService;
             DialogService = dialogService;
-            ValuesService = valuesService;
         }
 
         private bool CanExecuteGenerateToken()
@@ -59,7 +57,8 @@ namespace BaseApp.Core.ViewModels
 
             if (retorno.IsSuccess)
             {
-                await DialogService.DisplayAlertAsync("Sucesso", "Acesso Autorizado", "Ok", string.Empty);
+                await DialogService.DisplayAlertAsync("Sucesso", "Acesso Autorizado", "Ok");
+                Settings.Token = retorno.Content.AccessToken;
                 await NavigationService.NavigateAsync(BaseAppPageLinks.InicialPage);
             }
             else

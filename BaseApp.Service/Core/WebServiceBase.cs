@@ -40,7 +40,7 @@ namespace BaseApp.Service.Core
                                 response = await client.GetAsync(url);
                                 break;
                             case RequestType.Post:
-                                response = await client.PostAsync(url, new StringContent(content));
+                                response = await client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
                                 break;
                             case RequestType.Put:
                                 response = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
@@ -57,6 +57,9 @@ namespace BaseApp.Service.Core
                             string responseString = await response.Content.ReadAsStringAsync();
 
                             resposta.Content = JsonHelper<O>.JsonToObject(responseString);
+                            resposta.IsSuccess = true;
+
+                            triesNumber = i++;
                         }
                         else
                         {

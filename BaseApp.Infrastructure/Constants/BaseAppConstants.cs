@@ -3,7 +3,7 @@
     public static class  BaseAppConstants
     {
         public static readonly string DatabaseName = "BaseAppDatabase.db3";
-        public static readonly string BaseURL = "http://jsonplaceholder.typicode.com/";
+        public static readonly string BaseURL = "http://baseappapi.azurewebsites.net/api/";
 
         public static readonly string UserName = "";
         public static readonly string Password = "";
