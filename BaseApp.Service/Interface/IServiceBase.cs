@@ -4,14 +4,10 @@ using System.Threading.Tasks;
 
 namespace BaseApp.Service.Interface
 {
-    public interface IServiceBase<T> where T : ModelBase
+    public interface IServiceBase
     {
-        Task<RespostaPadrão> GetItemsAsync();
-        
-        Task<RespostaPadrão> GetItemAsync(int id);
-
-        Task<RespostaPadrão> SaveItemAsync(T item);
-
-        Task<RespostaPadrão> DeleteItemAsync(T item);
+        string ServiceName { get; }
+        string Token { get; }
+        int RetriesNumber { get; }
     }
 }

@@ -8,10 +8,10 @@
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
             <Label Text="Login:" />
-            <Entry />
+            <Entry Text="{Binding UserLogin.UserID}" />
             <Label Text="Senha:" />
-            <Entry />
-            <Button Text="Acessar" />
+            <Entry Text="{Binding UserLogin.AccessKey}" />
+            <Button Command="{Binding GerarTokenCommand}" Text="Acessar" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

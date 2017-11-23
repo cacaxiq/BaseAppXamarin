@@ -9,5 +9,6 @@ namespace BaseApp.Infrastructure.Constants
     public static class BaseAppPageLinks
     {
         public static readonly string InicialPage = "MainPage";
+        public static readonly string LoginPage = "LoginPage";
     }
 }

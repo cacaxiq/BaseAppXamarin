@@ -11,11 +11,13 @@ using System.Threading.Tasks;
 
 namespace BaseApp.Service.Core
 {
-    public static class WebServiceBase<T> where T : class
+    public static class WebServiceBase<O, I>
+        where O : class
+        where I : class
     {
-        public static async Task<RespostaPadrão> RequestAsync(string service, string token, int triesNumber = 0, RequestType requestType = RequestType.Get, T SendObject = null)
+        public static async Task<RespostaPadrão<O>> RequestAsync(string service, string token, int triesNumber = 0, RequestType requestType = RequestType.Get, I SendObject = null)
         {
-            RespostaPadrão resposta = null;
+            RespostaPadrão<O> resposta = new RespostaPadrão<O>();
             var url = $"{BaseAppConstants.BaseURL}{service}";
             HttpResponseMessage response = new HttpResponseMessage();
 
@@ -27,9 +29,10 @@ namespace BaseApp.Service.Core
                     {
                         client.DefaultRequestHeaders.Accept.Clear();
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        if (!string.IsNullOrEmpty(token))
+                            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                        var content = JsonHelper<T>.ObjectToJson(SendObject);
+                        var content = JsonHelper<I>.ObjectToJson(SendObject);
 
                         switch (requestType)
                         {
@@ -37,7 +40,7 @@ namespace BaseApp.Service.Core
                                 response = await client.GetAsync(url);
                                 break;
                             case RequestType.Post:
-                                response = await client.PostAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
+                                response = await client.PostAsync(url, new StringContent(content));
                                 break;
                             case RequestType.Put:
                                 response = await client.PutAsync(url, new StringContent(content, Encoding.UTF8, "application/json"));
@@ -53,7 +56,7 @@ namespace BaseApp.Service.Core
                         {
                             string responseString = await response.Content.ReadAsStringAsync();
 
-                            resposta.Content = JsonHelper<T>.JsonToObject(responseString);
+                            resposta.Content = JsonHelper<O>.JsonToObject(responseString);
                         }
                         else
                         {
@@ -89,6 +92,11 @@ namespace BaseApp.Service.Core
                 catch (JsonException jsonException)
                 {
                     resposta.Message = $"JsonException: {jsonException.Message}";
+                    resposta.IsSuccess = false;
+                }
+                catch (HttpRequestException httpRequestException)
+                {
+                    resposta.Message = $"Exception: {httpRequestException.Message}";
                     resposta.IsSuccess = false;
                 }
                 catch (Exception exception)

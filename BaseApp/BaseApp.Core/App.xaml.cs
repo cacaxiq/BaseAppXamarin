@@ -1,11 +1,9 @@
-﻿using BaseApp.Core.Helpers;
-using BaseApp.Core.Views;
-using BaseApp.Models.Authorization;
-using BaseApp.Models.Interfaces.Authorization;
+﻿using BaseApp.Core.Views;
+using BaseApp.Infrastructure.Constants;
+using BaseApp.Infrastructure.Services.UserService;
 using BaseApp.Service.Interface;
 using BaseApp.Service.Services;
 using Microsoft.Practices.Unity;
-using Plugin.Settings.Abstractions;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
 
@@ -19,22 +17,24 @@ namespace BaseApp.Core
         protected override void OnInitialized()
         {
             InitializeComponent();
-            NavigationService.NavigateAsync("MainPage");
+            NavigationService.NavigateAsync(BaseAppPageLinks.LoginPage);
         }
+
+        public App() : this(null) { }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<MainPage>();
-
+            Container.RegisterTypeForNavigation<LoginPage>();
 
             InitServices(false);
         }
 
         protected void InitServices(bool mock = false)
         {
-            Container.RegisterType<ISettings>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IToken, TokenConfiguration>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IValueService, ValueService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISettingsUser, SettingsUser>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IAccessControlService, AccessControlService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IValuesService, ValuesService>(new ContainerControlledLifetimeManager());
         }
     }
 }

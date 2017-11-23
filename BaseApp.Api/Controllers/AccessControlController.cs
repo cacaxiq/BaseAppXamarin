@@ -1,5 +1,5 @@
 ﻿using BaseApp.Api.Authorization;
-using BaseApp.Models.Api;
+using BaseApp.Models.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -69,13 +69,6 @@ namespace BaseApp.Api.Controllers
                     message = "Falha ao autenticar"
                 };
             }
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
     }
 }

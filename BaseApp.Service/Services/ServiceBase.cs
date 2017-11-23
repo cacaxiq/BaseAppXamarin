@@ -1,43 +1,28 @@
-﻿
+﻿using BaseApp.Infrastructure.Constants;
 using BaseApp.Infrastructure.Enums;
+using BaseApp.Infrastructure.Services.UserService;
 using BaseApp.Models.Core;
-using BaseApp.Models.Interfaces.Authorization;
 using BaseApp.Service.Core;
 using BaseApp.Service.Interface;
 using System.Threading.Tasks;
 
 namespace BaseApp.Service.Services
 {
-    public class ServiceBase<T> : IServiceBase<T> where T : ModelBase, new()
+    public class ServiceBase : IServiceBase
     {
-        private readonly IToken token;
         private readonly string serviceName;
-        private readonly int triesNumber = 3;
+        private readonly int retriesNumber;
+        private ISettingsUser SettingsUser;
 
-        public ServiceBase(string _serviceName, IToken _token)
+        public ServiceBase(string _serviceName, ISettingsUser settingsUser)
         {
             serviceName = _serviceName;
-            token = _token;
+            retriesNumber = BaseAppConstants.RetriesNumber;
+            SettingsUser = settingsUser;
         }
 
-        public Task<RespostaPadrão> GetItemAsync(int id)
-        {
-            return WebServiceBase<T>.RequestAsync($"{serviceName}/{id}", token.Token, triesNumber);
-        }
-
-        public Task<RespostaPadrão> GetItemsAsync()
-        {
-            return WebServiceBase<T>.RequestAsync(serviceName, token.Token, triesNumber);
-        }
-
-        public Task<RespostaPadrão> SaveItemAsync(T item)
-        {
-            return WebServiceBase<T>.RequestAsync(serviceName, token.Token, triesNumber, RequestType.Post, item);
-        }
-
-        public Task<RespostaPadrão> DeleteItemAsync(T item)
-        {
-            return WebServiceBase<T>.RequestAsync($"{serviceName}/{item.Id}", token.Token, triesNumber, RequestType.Delete);
-        }
+        public string ServiceName => serviceName;
+        public int RetriesNumber => retriesNumber;
+        public string Token => SettingsUser.Token;
     }
 }

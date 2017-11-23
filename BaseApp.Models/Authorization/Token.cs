@@ -1,6 +1,8 @@
-﻿namespace BaseApp.Models.Authorization
+﻿using BaseApp.Models.Core;
+
+namespace BaseApp.Models.Authorization
 {
-    public class Token
+    public class Token : ModelBase
     {
         public bool Authenticated { get; set; }
         public string Created { get; set; }
