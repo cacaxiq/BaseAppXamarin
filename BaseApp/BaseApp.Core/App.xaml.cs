@@ -3,7 +3,8 @@ using BaseApp.Infrastructure.Constants;
 using BaseApp.Infrastructure.Services.UserService;
 using BaseApp.Service.Interface;
 using BaseApp.Service.Services;
-using Microsoft.Practices.Unity;
+using Prism;
+using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
 
@@ -22,19 +23,19 @@ namespace BaseApp.Core
 
         public App() : this(null) { }
 
-        protected override void RegisterTypes()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            Container.RegisterTypeForNavigation<MainPage>();
-            Container.RegisterTypeForNavigation<LoginPage>();
+            containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<LoginPage>();
 
-            InitServices(false);
+            InitServices(containerRegistry);
         }
 
-        protected void InitServices(bool mock = false)
+        protected void InitServices(IContainerRegistry containerRegistry, bool mock = false)
         {
-            Container.RegisterType<ISettingsUser, SettingsUser>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IAccessControlService, AccessControlService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IValuesService, ValuesService>(new ContainerControlledLifetimeManager());
+            containerRegistry.Register<ISettingsUser, SettingsUser>();
+            containerRegistry.Register<IAccessControlService, AccessControlService>();
+            containerRegistry.Register<IValuesService, ValuesService>();
         }
     }
 }

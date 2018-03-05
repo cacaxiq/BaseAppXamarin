@@ -2,8 +2,8 @@
 using Android.Content.PM;
 using Android.OS;
 using BaseApp.Core;
-using Microsoft.Practices.Unity;
-using Prism.Unity;
+using Prism;
+using Prism.Ioc;
 
 namespace BaseApp.Droid
 {
@@ -22,10 +22,7 @@ namespace BaseApp.Droid
 
     public class AndroidInitializer : IPlatformInitializer
     {
-        public void RegisterTypes(IUnityContainer container)
-        {
-
-        }
+        public void RegisterTypes(IContainerRegistry containerRegistry) { }
     }
 }
 
