@@ -1,4 +1,5 @@
 ﻿using BaseApp.Core;
+using BaseApp.Infrastructure.Constants;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -12,9 +13,15 @@ namespace BaseApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            InitializePlugins();
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void InitializePlugins()
+        {
+            Google.MobileAds.MobileAds.Configure(BaseAppConstants.AdmobKeyiOS);
         }
     }
 

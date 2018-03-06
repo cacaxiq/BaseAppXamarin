@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using BaseApp.Core;
+using BaseApp.Infrastructure.Constants;
 using Prism;
 using Prism.Ioc;
 
@@ -13,10 +14,15 @@ namespace BaseApp.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            InitializePlugins();
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App(new AndroidInitializer()));
+        }
+
+        private void InitializePlugins()
+        {
+            global::Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, BaseAppConstants.AdmobKeyAndroid);
         }
     }
 
