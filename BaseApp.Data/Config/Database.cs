@@ -1,9 +1,9 @@
-﻿using BaseApp.Data.Interface;
+﻿using BaseApp.LocalDatabase.Interface;
 using BaseApp.Infrastructure.Constants;
 using SQLite;
 using Xamarin.Forms;
 
-namespace BaseApp.Data.Config
+namespace BaseApp.LocalDatabase.Config
 {
     public class Database : IDatabase
     {

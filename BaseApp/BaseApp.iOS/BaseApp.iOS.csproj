@@ -138,10 +138,6 @@
     <Reference Include="Google.MobileAds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Google.iOS.MobileAds.7.27.0.1\lib\Xamarin.iOS10\Google.MobileAds.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\build\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Settings, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.iOS10\Plugin.Settings.dll</HintPath>
     </Reference>
@@ -201,13 +197,17 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BaseApp.Data\BaseApp.Data.csproj">
+    <ProjectReference Include="..\..\BaseApp.Data\BaseApp.LocalDatabase.csproj">
       <Project>{328EB11A-CDF0-48A1-9C05-7E263B7681D3}</Project>
-      <Name>BaseApp.Data</Name>
+      <Name>BaseApp.LocalDatabase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BaseApp.Infrastructure\BaseApp.Infrastructure.csproj">
       <Project>{6662E2CD-393C-4143-82BE-50915EBA1F65}</Project>
       <Name>BaseApp.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseApp.View\BaseApp.View.csproj">
+      <Project>{c090e981-feb1-48f1-8d2a-baf82e9835e3}</Project>
+      <Name>BaseApp.View</Name>
     </ProjectReference>
     <ProjectReference Include="..\BaseApp.Core\BaseApp.Core.csproj">
       <Project>{d1b3deb7-46e7-4b52-b309-d806f3f5ac38}</Project>

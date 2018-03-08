@@ -1,12 +1,12 @@
-﻿using BaseApp.Data.Interface;
-using BaseApp.Data.Models;
+﻿using BaseApp.LocalDatabase.Interface;
+using BaseApp.LocalDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseApp.Data.Repository
+namespace BaseApp.LocalDatabase.Repository
 {
     public class Repository<T> : IRepository<T> where T : ModelBase, new()
     {

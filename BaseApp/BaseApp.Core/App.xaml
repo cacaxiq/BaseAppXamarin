@@ -3,7 +3,7 @@
     x:Class="BaseApp.Core.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:adMob="using:BaseApp.Core.Views.CustomViews"
+    xmlns:adMob="clr-namespace:BaseApp.View.Pages.Controls;assembly=BaseApp.View"
     xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
     <Application.Resources>
         <ResourceDictionary>
@@ -17,6 +17,10 @@
                     <adMob:AdMobView Grid.Row="1" AdUnitId="{TemplateBinding BindingContext.AdUnitId}" />
                 </Grid>
             </ControlTemplate>
+
+            <Style TargetType="ContentPage">
+                <Setter Property="Padding" Value="20,20,20,20" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

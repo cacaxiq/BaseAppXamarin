@@ -1,8 +1,8 @@
 ﻿using Xamarin.Forms;
 
-namespace BaseApp.Core.Views.CustomViews
+namespace BaseApp.View.Pages.Controls
 {
-    public class AdMobView : View
+    public class AdMobView : Xamarin.Forms.View
     {
         public static readonly BindableProperty AdUnitIdProperty = BindableProperty.Create(
                    nameof(AdUnitId),

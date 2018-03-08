@@ -11,7 +11,7 @@ using BaseApp.Infrastructure.Constants;
 
 namespace BaseApp.Core.ViewModels
 {
-    public class LoginPageViewModel : ViewModelBase
+    public class Login : ViewModelBase
     {
         public DelegateCommand GerarTokenCommand { get; }
 
@@ -27,7 +27,7 @@ namespace BaseApp.Core.ViewModels
             set { SetProperty(ref userLogin, value); }
         }
 
-        public LoginPageViewModel(
+        public Login(
               IAccessControlService accessControlService
             , IPageDialogService dialogService
             , INavigationService navigationService) : base(navigationService)

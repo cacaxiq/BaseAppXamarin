@@ -16,6 +16,8 @@
     <ProjectReference Include="..\..\BaseApp.Infrastructure\BaseApp.Infrastructure.csproj" />
     <ProjectReference Include="..\..\BaseApp.Models\BaseApp.Models.csproj" />
     <ProjectReference Include="..\..\BaseApp.Service\BaseApp.Service.csproj" />
+    <ProjectReference Include="..\..\BaseApp.ViewModel\BaseApp.ViewModel.csproj" />
+    <ProjectReference Include="..\..\BaseApp.View\BaseApp.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,8 @@
-﻿using BaseApp.Data.Models;
+﻿using BaseApp.LocalDatabase.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BaseApp.Data.Interface
+namespace BaseApp.LocalDatabase.Interface
 {
     public interface IRepository<T> where T : ModelBase
     {

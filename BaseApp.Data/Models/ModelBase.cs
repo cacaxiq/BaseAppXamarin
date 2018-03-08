@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace BaseApp.Data.Models
+namespace BaseApp.LocalDatabase.Models
 {
     public class ModelBase
     {

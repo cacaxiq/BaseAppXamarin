@@ -1,4 +1,4 @@
-﻿using BaseApp.Core.Views.CustomViews;
+﻿using BaseApp.View.Pages.Controls;
 using BaseApp.iOS.Renders;
 using Google.MobileAds;
 using System.ComponentModel;

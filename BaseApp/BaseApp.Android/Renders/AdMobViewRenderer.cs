@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using Android.Gms.Ads;
 using Android.Widget;
-using BaseApp.Core.Views.CustomViews;
+using BaseApp.View.Pages.Controls;
 using BaseApp.Droid.Renders;
 using System.ComponentModel;
 using Xamarin.Forms;

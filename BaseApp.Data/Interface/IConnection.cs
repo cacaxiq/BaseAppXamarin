@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace BaseApp.Data.Interface
+namespace BaseApp.LocalDatabase.Interface
 {
     public interface IConnection
     {

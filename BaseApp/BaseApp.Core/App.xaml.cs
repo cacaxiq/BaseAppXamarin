@@ -1,5 +1,4 @@
-﻿using BaseApp.Core.Views;
-using BaseApp.Infrastructure.Constants;
+﻿using BaseApp.Infrastructure.Constants;
 using BaseApp.Infrastructure.Services.UserService;
 using BaseApp.Service.Interface;
 using BaseApp.Service.Services;
@@ -25,8 +24,7 @@ namespace BaseApp.Core
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<MainPage>();
-            containerRegistry.RegisterForNavigation<LoginPage>();
+            containerRegistry.RegisterForNavigation<View.Pages.Login,ViewModels.Login>(BaseAppPageLinks.LoginPage);
 
             InitServices(containerRegistry);
         }
